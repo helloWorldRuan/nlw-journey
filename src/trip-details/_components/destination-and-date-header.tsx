@@ -17,7 +17,7 @@ export function DestinationAndDateHeader() {
 
 				<hr className="w-px h-6 bg-zinc-800" />
 
-				<Button variant="secondary">
+				<Button size="default" variant="secondary">
 					Alterar local/data
 					<Settings2 className="size-5" />
 				</Button>
