@@ -4,12 +4,11 @@
 
 * {
 	min-width: 0;
-}
-
-button,
-input,
-div {
-	transition: all 0.3s ease;
+	transition: all 0.1s ease;
 	outline: none;
 	border: none;
+}
+
+input {
+	color-scheme: dark;
 }
