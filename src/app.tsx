@@ -2,9 +2,11 @@ import {
 	ArrowRight,
 	AtSign,
 	Calendar,
+	Mail,
 	MapPin,
 	Plus,
 	Settings2,
+	User,
 	UserPlus2,
 	X,
 } from 'lucide-react';
@@ -13,6 +15,8 @@ import { FormEvent, useState } from 'react';
 export function App() {
 	const [isGuestsInputOpen, setIsGuestsInputOpen] = useState(false);
 	const [isGuestsModalOpen, setIsGuestsModalOpen] = useState(false);
+	const [isConfirmTripModalOpen, setIsConfirmTripModalOpen] = useState(false);
+
 	const [emailsToInvite, setEmailsToInvite] = useState<string[]>([
 		'roberval@gmail.com',
 	]);
@@ -21,16 +25,20 @@ export function App() {
 		setIsGuestsInputOpen(true);
 	}
 
-	function hideGuestsInput() {
-		setIsGuestsInputOpen(false);
-	}
-
 	function openGuestsModal() {
 		setIsGuestsModalOpen(true);
 	}
 
 	function closeGuestsModal() {
 		setIsGuestsModalOpen(false);
+	}
+
+	function openConfirmTripModal() {
+		setIsConfirmTripModalOpen(true);
+	}
+
+	function closeConfirmTripModal() {
+		setIsConfirmTripModalOpen(false);
 	}
 
 	function addNewEmailToInvite(event: FormEvent<HTMLFormElement>) {
@@ -53,6 +61,18 @@ export function App() {
 	function removeEmailFromInvites(removedEmail: string) {
 		setEmailsToInvite(emailsToInvite.filter((email) => email !== removedEmail));
 	}
+
+	function getInviteMessage(emailCount: number) {
+		if (emailCount > 1) {
+			return `${emailCount} pessoas convidadas`;
+		} else if (emailCount === 1) {
+			return `${emailCount} pessoa convidada`;
+		} else {
+			return 'Quem estará na viagem?';
+		}
+	}
+
+	const inviteMessage = getInviteMessage(emailsToInvite.length);
 
 	return (
 		<div className="w-full h-screen flex justify-center items-center bg-pattern bg-no-repeat bg-center">
@@ -113,15 +133,22 @@ export function App() {
 								className="flex items-center gap-2 flex-1"
 							>
 								<UserPlus2 className="size-5 text-zinc-400" />
-								<span className="text-zinc-400 text-lg text-left">
-									Quem estará na viagem?
+
+								<span
+									className={`text-lg text-left ${
+										emailsToInvite.length > 0
+											? 'text-zinc-100'
+											: 'text-zinc-400'
+									}`}
+								>
+									{inviteMessage}
 								</span>
 							</button>
 
 							<div className="w-px h-6 bg-zinc-800" />
 
 							<button
-								onClick={hideGuestsInput}
+								onClick={openConfirmTripModal}
 								className="bg-lime-300 text-lime-950 rounded-lg px-5 py-2 font-medium flex items-center gap-2 hover:bg-lime-400"
 							>
 								Confirmar viagem
@@ -203,6 +230,68 @@ export function App() {
 									className="bg-lime-300 text-lime-950 rounded-lg px-5 py-2 font-medium flex items-center gap-2 hover:bg-lime-400"
 								>
 									Convidar
+									<Plus className="size-5" />
+								</button>
+							</form>
+						</div>
+					</div>
+				)}
+
+				{isConfirmTripModalOpen && (
+					<div className="bg-black/60 backdrop-blur-sm flex justify-center items-center fixed inset-0">
+						<div className="bg-zinc-900 w-[640px] flex flex-col items-start justify-start gap-5 px-6 py-5 rounded-xl shadow-shape">
+							<div className="w-full space-y-1 text-left">
+								<div className="w-full flex items-center justify-between">
+									<h2 className="text-xl font-semibold">
+										Confirmar criação da viagem
+									</h2>
+
+									<button onClick={closeConfirmTripModal} type="button">
+										<X className="size-5 text-zinc-400" />
+									</button>
+								</div>
+
+								<p className="text-zinc-400 text-sm">
+									Para concluir a criação da viagem para
+									<strong> Florianópolis, Brasil </strong>
+									nas datas de <strong>16 a 27 de Agosto de 2024 </strong>
+									preencha seus dados abaixo:
+								</p>
+							</div>
+
+							<form
+								onSubmit={addNewEmailToInvite}
+								className="w-full flex flex-col gap-3"
+							>
+								<div className="w-full h-16 bg-zinc-950 ring-1 ring-zinc-800 focus:ring-lime-300 px-4 rounded-xl flex items-center">
+									<div className="flex items-center gap-2 flex-1">
+										<User className="size-5 text-zinc-400" />
+										<input
+											type="text"
+											name="name"
+											placeholder="Seu nome completo"
+											className="bg-transparent text-lg placeholder-zinc-400 flex-1"
+										/>
+									</div>
+								</div>
+
+								<div className="w-full h-16 bg-zinc-950 ring-1 ring-zinc-800 focus:ring-lime-300 px-4 rounded-xl flex items-center">
+									<div className="flex items-center gap-2 flex-1">
+										<Mail className="size-5 text-zinc-400" />
+										<input
+											type="email"
+											name="email"
+											placeholder="Seu e-mail pessoal"
+											className="bg-transparent text-lg placeholder-zinc-400 flex-1"
+										/>
+									</div>
+								</div>
+
+								<button
+									type="submit"
+									className="w-full bg-lime-300 text-lime-950 rounded-lg px-5 py-3 font-medium flex justify-center items-center gap-2 hover:bg-lime-400"
+								>
+									Confirmar criação da viagem
 									<Plus className="size-5" />
 								</button>
 							</form>
