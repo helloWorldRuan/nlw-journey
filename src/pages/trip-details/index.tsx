@@ -1,6 +1,6 @@
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from '../components/button';
+import { Button } from '../../components/button';
 import { Activities } from './_components/activities';
 import { CreateActivityModal } from './_components/create-activity-modal';
 import { DestinationAndDateHeader } from './_components/destination-and-date-header';
