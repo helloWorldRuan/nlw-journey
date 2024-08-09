@@ -34,33 +34,7 @@ export function TripDetailsPage() {
 						</Button>
 					</div>
 
-					<div className="space-y-8">
-						<div className="space-y-2 5">
-							<div className="flex gap-2 items-baseline">
-								<span className="text-xl text-zinc-300 font-semibold">
-									Dia 23
-								</span>
-								<span className="text-xs text-zinc-500">Quarta-feira</span>
-							</div>
-
-							<p className="text-zinc-500 text-sm">
-								Nenhuma atividade cadastrada nessa data
-							</p>
-						</div>
-					</div>
-
-					<div className="space-y-8">
-						<div className="space-y-2.5">
-							<div className="flex gap-2 items-baseline">
-								<span className="text-xl text-zinc-300 font-semibold">
-									Dia 24
-								</span>
-								<span className="text-xs text-zinc-500">Quinta-feira</span>
-							</div>
-
-							<Activities />
-						</div>
-					</div>
+					<Activities />
 				</div>
 
 				<div className="w-80 space-y-6">
